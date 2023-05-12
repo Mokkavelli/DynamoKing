@@ -1,0 +1,96 @@
+#El Mokkadem Hassan - helmokkadem@gmail.com - Stay CONNECTED
+
+
+import clr
+# import windows form 
+
+clr.AddReference("System.Windows.Forms")
+#import system drawing 
+clr.AddReference("System.Drawing")
+# import system
+import System
+from System.Windows.Forms import *
+from System.Drawing import *
+
+list = IN[0]
+
+class CreateWindow2(Form):
+	def __init__(self):
+		
+		self.Name = "Form1"
+		self.Text = ""
+		self.Size = Size(100,100)
+		self.CenterToScreen()
+		self.ScrollBar = True
+		
+		z = Label()
+		z.Text = "DONE"
+		z.Location = Point(40,20)
+		z.Parent = self
+
+class CreateWindow(Form):
+	def __init__(self):
+		
+		t = len(list)
+		h = t * 60+100
+		self.Name = "Form1"
+		self.Text = "Tabel"
+		self.Size = Size(500,500)
+		self.CenterToScreen()
+		self.AutoScroll = True
+		
+		
+	
+		self.values = []
+		v = 10
+		for x in list: 
+			z = str(x) +'l'
+			z = CheckBox()
+			z.Parent = self
+			z.Location = Point(50,v)
+			z.Text = str(x)
+			z.Enabled = 1
+			z.Width = 300
+			z.Height = 50
+			v += 60
+			self.values.append(z)
+			
+		button = Button()
+		button.Parent = self
+		button.Text = "OK"
+		button.Location = Point(400,100)		
+		
+		button.Click += self.ButtonClicked
+	
+	def ButtonClicked(self, sender, args):
+		if sender.Click:
+			self.Close()
+			form2 = CreateWindow2()
+			form2.ShowDialog()
+			
+
+				
+			
+			
+			
+form = CreateWindow()
+form2 = CreateWindow2()
+lost = []
+	
+
+Application.Run(form)
+for x in form.values:
+	p = x.CheckState
+	lost.append(p)
+	
+nwlst = []
+
+for x,y in map(None,lost, list):
+	if str(x) == "Checked":
+		nwlst.append(y)
+	
+	
+Application.Run(form2)
+
+OUT = nwlst
+			
